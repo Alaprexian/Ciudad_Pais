@@ -83,6 +83,49 @@ bool busqueda(Location& n1){
   
 }
 
+void Test1(){
+  std::cout<<"Test 1: \n";
+  std::cout<<"Test 1.1: Busqueda de datos de lugar 1:\n";
+  //Comprueba si la función busqueda funciona correctamente
+  Location n1={"Tokyo" , "Japan", 35.6897, 139.6922};
+  Location n2={"Tokyo" , "Japan",0,0};
+  busqueda(n2);
+    //La diferencia no debe ser mayor a 1e-5
+  assert((abs(n1.latitude-n2.latitude)<=pow(10,-5) && abs(n1.longitude-n2.longitude)<=pow(10,-5)));
+  std::cout<<"Test 1.1 OK"<<std::endl;
+
+  std::cout<<"\nTest 1.2: Busqueda de datos de lugar 2:\n";
+  //Comprueba si la función busqueda funciona correctamente para otro caso
+  Location n3={"Delhi" , "India", 28.6100, 77.2300};
+  Location n4={"Delhi" , "India",0,0};
+  busqueda(n4);
+    //La diferencia no debe ser mayor a 1e-5
+  assert((abs(n3.latitude-n4.latitude)<=pow(10,-5) && abs(n3.longitude-n4.longitude)<=pow(10,-5)));
+  std::cout<<"Test 1.2 OK"<<std::endl;
+
+  std::cout<<"\nTest 1.3: Metodo Haversine:\n";
+  //Comprueba si la función Haversine funciona correctamente
+    assert((abs(Haversine(n1.latitude,n1.longitude,n3.latitude,n3.longitude)-Haversine(n2.latitude,n2.longitude,n4.latitude,n4.longitude))<=pow(10,-5)));
+  std::cout<<"Test 1.3 OK"<<std::endl;
+}
+
+void Test2(){
+  std::cout<<"\nTest 2: Se entrega datos que no existen\n";
+  //Comprueba si la función busqueda funciona correctamente para un caso donde no existe
+  Location n2={"Tokyo" , "Japen",0,0};
+  assert(!busqueda(n2));  
+  std::cout<<"Test 2 OK"<<std::endl;
+}
+
+void Test3(){
+  std::cout<<"\nTest 3: Se entrega la misma ciudad\n";
+  //Comprueba si la función busqueda funciona correctamente para un caso donde la ciudad es la misma
+  Location n1={"Tokyo" , "Japan", 35.6897, 139.6922};
+  Location n2={"Tokyo" , "Japan",35.6897, 139.6922};
+  assert(Haversine(n1.latitude,n1.longitude,n2.latitude,n2.longitude)==0);
+  std::cout<<"Test 3 OK"<<std::endl;
+}
+
 int main() {
     // Valores de búsqueda
     std::string search_city1, search_country1, search_city2, search_country2;
