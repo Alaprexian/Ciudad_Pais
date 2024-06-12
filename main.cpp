@@ -21,8 +21,8 @@ struct Location {
 
 float rt=6371;
 float Haversine(float lat1, float long1, float lat2, float long2){
-    float lat=lat2-lat1; float lng=long2-long1;
-    float a=pow(sin(lat/2),2) + cos(lat1)*cos(lat2)*pow(sin(lng/2),2);
+    float lat=(lat2-lat1)*M_PI/180; float lng=(long2-long1)*M_PI/180;
+    float a=pow(sin(lat/2),2) + cos(lat1*M_PI/180)*cos(lat2*M_PI/180)*pow(sin(lng/2),2);
     float c= 2*atan2(sqrt(a), sqrt(1-a));
     return rt*c;    
 }
